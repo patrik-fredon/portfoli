@@ -1,33 +1,27 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const projects = [
   {
-    title: 'Digital Transformation Strategy',
-    category: 'Business Strategy',
-    description: 'Led digital transformation initiative for a Fortune 500 company, resulting in 35% operational efficiency improvement.',
+    title: 'Strategic Business Transformation',
+    description: 'Led digital transformation initiative for Fortune 500 company, resulting in 35% efficiency increase.',
     image: '/project1.jpg',
+    tags: ['Strategy', 'Digital Transformation', 'Change Management'],
   },
   {
-    title: 'Process Optimization Project',
-    category: 'Process Improvement',
-    description: 'Streamlined core business processes resulting in $2M annual cost savings and 25% productivity increase.',
+    title: 'Process Optimization Program',
+    description: 'Implemented Lean Six Sigma methodologies to streamline operations, reducing costs by 25%.',
     image: '/project2.jpg',
+    tags: ['Process Optimization', 'Six Sigma', 'Cost Reduction'],
   },
   {
-    title: 'Enterprise System Implementation',
-    category: 'Project Management',
-    description: 'Successfully managed implementation of enterprise-wide ERP system within budget and timeline.',
+    title: 'Market Expansion Strategy',
+    description: 'Developed and executed market entry strategy for emerging markets, achieving 50% growth.',
     image: '/project3.jpg',
-  },
-  {
-    title: 'Business Growth Strategy',
-    category: 'Strategic Planning',
-    description: 'Developed and executed growth strategy leading to 40% revenue increase within 18 months.',
-    image: '/project4.jpg',
+    tags: ['Market Analysis', 'Growth Strategy', 'International'],
   },
 ];
 
@@ -46,13 +40,13 @@ export default function PortfolioSection() {
             bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
             Featured Projects
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Explore some of my recent projects and success stories that demonstrate
-            my expertise in driving business transformation and growth.
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            A selection of key projects that demonstrate my expertise in business 
+            transformation and strategic consulting.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
@@ -60,26 +54,35 @@ export default function PortfolioSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative overflow-hidden rounded-lg shadow-lg 
-                bg-white dark:bg-gray-800 hover:shadow-xl transition-shadow duration-300"
+              className="bg-gray-50 dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg 
+                hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="relative h-64 w-full">
+              <div className="relative h-48">
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="object-cover transition-transform duration-300 
-                    group-hover:scale-105"
+                  className="object-cover"
                 />
               </div>
               <div className="p-6">
-                <span className="text-sm text-blue-600 dark:text-blue-400 font-medium">
-                  {project.category}
-                </span>
-                <h3 className="text-xl font-semibold mt-2 mb-3 text-gray-900 dark:text-white">
+                <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
                   {project.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300">{project.description}</p>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-sm px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 
+                        dark:text-blue-400 rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}
@@ -94,10 +97,10 @@ export default function PortfolioSection() {
         >
           <a
             href="#contact"
-            className="inline-block px-8 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 
-              active:bg-blue-800 text-white font-medium transition-colors duration-200"
+            className="inline-block px-8 py-3 rounded-lg bg-blue-600 text-white font-medium 
+              hover:bg-blue-700 active:bg-blue-800 transition-colors duration-200"
           >
-            Start a Project
+            Discuss Your Project
           </a>
         </motion.div>
       </div>

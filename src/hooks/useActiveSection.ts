@@ -2,40 +2,35 @@
 
 import { useState, useEffect } from 'react';
 
-export const useActiveSection = () => {
-  const [activeSection, setActiveSection] = useState<string>('home');
+export function useActiveSection() {
+  const [activeSection, setActiveSection] = useState<string>('hero');
 
   useEffect(() => {
+    const sections = document.querySelectorAll('section[id]');
+    
     const handleScroll = () => {
-      const sections = document.querySelectorAll('section[id]');
-      const navHeight = 64; // Height of fixed navbar
-      const scrollPosition = window.scrollY + navHeight + 100; // Add offset for better accuracy
+      let currentSection = '';
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
 
       sections.forEach((section) => {
-        const element = section as HTMLElement;
-        const sectionTop = element.offsetTop;
-        const sectionBottom = sectionTop + element.offsetHeight;
+        const sectionTop = (section as HTMLElement).offsetTop;
+        const sectionBottom = sectionTop + (section as HTMLElement).offsetHeight;
 
         if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-          const sectionId = section.getAttribute('id');
-          if (sectionId) {
-            setActiveSection(sectionId);
-          }
+          currentSection = section.id;
         }
       });
+
+      if (currentSection !== activeSection) {
+        setActiveSection(currentSection);
+      }
     };
 
-    // Initial check
-    handleScroll();
-
-    // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial position
 
-    // Cleanup
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [activeSection]);
 
   return activeSection;
-};
+}

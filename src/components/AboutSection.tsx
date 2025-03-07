@@ -1,16 +1,19 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { downloadCV } from '@/utils/downloadCV';
+import { handleCVDownload } from '@/utils/downloadCV';
 
 const skills = [
-  { name: 'Business Strategy', level: 90 },
-  { name: 'Project Management', level: 85 },
-  { name: 'Digital Transformation', level: 88 },
-  { name: 'Process Optimization', level: 92 },
-  { name: 'Team Leadership', level: 95 },
-  { name: 'Change Management', level: 87 },
+  'Strategic Planning',
+  'Business Analysis',
+  'Project Management',
+  'Process Optimization',
+  'Change Management',
+  'Risk Assessment',
+  'Stakeholder Management',
+  'Digital Transformation',
 ];
 
 export default function AboutSection() {
@@ -18,91 +21,90 @@ export default function AboutSection() {
     <section id="about" className="py-20 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Text Content */}
+          {/* Image */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
+            className="relative aspect-square rounded-2xl overflow-hidden"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent 
+            <Image
+              src="/about-image.jpg"
+              alt="Professional Portrait"
+              fill
+              className="object-cover"
+              priority
+            />
+          </motion.div>
+
+          {/* Content */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="space-y-6"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent 
               bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
               About Me
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-              A seasoned professional with over a decade of experience in transforming businesses
-              through strategic planning and innovative solutions. Specializing in digital
-              transformation and process optimization, I help organizations adapt and thrive in
-              today's rapidly evolving business landscape.
+            
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              With over a decade of experience in business consulting and strategy 
+              development, I help organizations navigate complex challenges and achieve 
+              their strategic objectives.
             </p>
-            <motion.button
-              onClick={downloadCV}
-              className="px-8 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 active:bg-blue-800 
-                text-white font-medium transition-colors duration-200"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Download CV
-            </motion.button>
-          </motion.div>
 
-          {/* Skills */}
-          <div className="space-y-6">
-            {skills.map((skill, index) => (
-              <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">
-                    {skill.name}
-                  </span>
-                  <span className="text-blue-600 dark:text-blue-400">
-                    {skill.level}%
-                  </span>
-                </div>
-                <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                  <motion.div
-                    className="h-full bg-gradient-to-r from-blue-600 to-indigo-600 
-                      dark:from-blue-400 dark:to-indigo-400"
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.level}%` }}
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              My approach combines analytical rigor with creative problem-solving to 
+              deliver practical solutions that drive measurable results.
+            </p>
+
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                Core Competencies
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {skills.map((skill) => (
+                  <motion.span
+                    key={skill}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1, delay: index * 0.1 }}
-                  />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Statistics */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
-          {[
-            { number: '10+', label: 'Years Experience' },
-            { number: '50+', label: 'Projects Completed' },
-            { number: '30+', label: 'Happy Clients' },
-            { number: '95%', label: 'Success Rate' },
-          ].map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent 
-                bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 
-                dark:to-indigo-400 mb-2">
-                {stat.number}
+                    whileHover={{ scale: 1.05 }}
+                    className="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full 
+                      text-gray-700 dark:text-gray-300 text-sm font-medium"
+                  >
+                    {skill}
+                  </motion.span>
+                ))}
               </div>
-              <div className="text-gray-600 dark:text-gray-300">{stat.label}</div>
-            </motion.div>
-          ))}
+            </div>
+
+            <div className="flex gap-4">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleCVDownload}
+                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 
+                  transition-colors duration-200"
+              >
+                Download CV
+              </motion.button>
+              <motion.a
+                href="#contact"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-6 py-3 border-2 border-blue-600 text-blue-600 
+                  dark:border-blue-400 dark:text-blue-400 rounded-lg hover:bg-blue-50 
+                  dark:hover:bg-blue-900/20 transition-colors duration-200"
+              >
+                Get in Touch
+              </motion.a>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
